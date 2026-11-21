@@ -1,6 +1,16 @@
 {
  "projects": [
   {
+   "id": "thi-nghiem-ong-khi-dong-mwqd5ufx",
+   "name": "THÍ NGHIỆM ỐNG KHÍ ĐỘNG",
+   "repo": "harieedawwn/khi-dong",
+   "pages": "https://harieedawwn.github.io/khi-dong/",
+   "desc": "",
+   "ta": 1.7778,
+   "thumb": "images/thi-nghiem-ong-khi-dong-mwqd5ufx/thumb-mwqd5uh64d0.jpg",
+   "shots": []
+  },
+  {
    "id": "thi-nghiem-mo-phong-giao-thoa-song-nuoc-mwqd1wg7",
    "name": "THÍ NGHIỆM MÔ PHỎNG GIAO THOA SÓNG NƯỚC",
    "repo": "harieedawwn/water-sim",

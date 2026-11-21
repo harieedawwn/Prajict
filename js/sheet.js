@@ -1,17 +1,14 @@
 /* ---- xem project: tấm nở ra từ card, trình xem nhiều ảnh, phóng toàn màn hình ---- */
 const sh=$('#sheet'),scrim=$('#scrim'),B=document.body;let vw=null;
-const rawBase=r=>`https://raw.githubusercontent.com/${r}/HEAD/`;
 function openP(p,t){curT=t;const imgs=(p.shots||[]).length?p.shots:p.thumb?[p.thumb]:[];
 const L=(u,txt,c='')=>`<a class="bt ${c}" target="_blank" rel="noopener" href="${esc(u)}">${txt}</a>`;
 $('.sb',sh).innerHTML=`<header class="hd"><h1>${esc(p.name)}</h1><div class="acts">${p.pages?L(p.pages,'Mở trang','pri'):''}${p.repo?L('https://github.com/'+p.repo,'GitHub')+L(`https://github.com/${p.repo}/archive/HEAD.zip`,'Tải ZIP'):''}${adm?'<button class="bt" id="ed">Sửa</button><button class="bt" id="dl">Xóa</button>':''}</div></header>
 ${imgs.length?`<div class="vw"><div class="st"><div class="rail">${imgs.map(u=>`<div class="sl"><img src="${esc(src(u))}" alt="" draggable="false"></div>`).join('')}</div>
 ${imgs.length>1?'<button class="bt ic nv pv" aria-label="Trước">←</button><button class="bt ic nv nx" aria-label="Sau">→</button><span class="ct"></span>':''}<button class="bt ic fs" aria-label="Toàn màn hình">⤢</button></div>
 ${imgs.length>1?`<div class="th">${imgs.map((u,i)=>`<button aria-label="${i+1}"><img src="${esc(src(u))}" alt="" loading="lazy"></button>`).join('')}</div>`:''}</div>`:''}
-<div class="md">${md(p.desc||'')}</div>`;
+${p.desc?`<div class="md">${md(p.desc)}</div>`:''}`;
 if(adm){$('#ed').onclick=()=>form(p);$('#dl').onclick=()=>dlg('Xóa "'+esc(p.name)+'"?','',async()=>{await delP(p);closeP(true);return true},'Xóa')}
 vw=imgs.length?viewer($('.vw',sh),imgs.length):null;
-if(!p.desc&&p.repo)fetch(rawBase(p.repo)+'README.md').then(r=>r.ok?r.text():'').then(s=>{if(!s||curT!==t)return;
-s=s.replace(/<[^>]*>/g,'').replace(/(\]\()(?!https?:|#|mailto:)\.?\/?([^)\s]+)/g,(_,a,u)=>a+rawBase(p.repo)+u);$('.md',sh).innerHTML=md(s)}).catch(()=>{});
 B.classList.add('open');sh.scrollTop=0;$('.sb',sh).scrollTop=0;
 const a=t.getBoundingClientRect();sh.style.transition='none';sh.style.transform='none';sh.style.opacity='1';const b=sh.getBoundingClientRect();
 sh.style.transform=`translate(${a.left-b.left}px,${a.top-b.top}px) scale(${a.width/b.width},${a.height/b.height})`;sh.style.borderRadius='60px';

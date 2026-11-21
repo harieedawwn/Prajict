@@ -10,7 +10,7 @@ Static GitHub Pages portfolio. One owner (hidden login, bottom-left invisible bu
 - `js/glass.js` DOM glass (SVG displacement map, Chromium; blur fallback elsewhere)
 - `js/shader.js` GLSL background only: contour map + cursor lens (`uOff` pans with the track)
 - `js/track.js` DOM cards (real <img>, card aspect = thumbnail aspect `ta`) laid on a curved arc; drag/wheel/keys with snap; WebGL2 draw loop (paused while the sheet is open)
-- `js/sheet.js` project view (FLIP from the card, blurred scrim), multi-image viewer (swipe, keys, fullscreen), README fallback when `desc` is empty, dialogs
+- `js/sheet.js` project view (FLIP from the card, blurred scrim), multi-image viewer (swipe, keys, fullscreen), dialogs
 - `js/admin.js` login (PBKDF2 hash), token AES-GCM in localStorage + optional "remember" (non-extractable key in IndexedDB), all writes as ONE commit via Git Data API (blobs → tree → commit → ref), removed images are deleted
 - `js/main.js` loads data
 - `data/projects.json` `{"projects":[{id,name,repo,pages,thumb,ta,shots[],desc}]}` (`ta` = thumb width/height) · `images/` uploads

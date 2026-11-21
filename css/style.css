@@ -106,3 +106,15 @@ transition:transform .55s var(--ease),opacity .3s .15s,border-radius .55s var(--
 .ad{display:grid;place-items:center;font-size:28px;font-weight:400;cursor:pointer}
 @media(max-width:600px){#sheet{width:100%;top:max(8px,env(safe-area-inset-top));bottom:0;border-radius:26px 26px 0 0}.hd{padding-right:48px}.nv{display:none}}
 @media(prefers-reduced-motion:reduce){*,*::before{transition-duration:.01s!important;animation-duration:.01s!important}}
+/* ---- điện thoại: UI gọn ---- */
+@media(max-width:600px){
+#top{padding:8px 16px 10px;border-radius:20px}#top h1{font-size:24px}
+.bt{min-height:36px;padding:0 14px;font-size:13px;border-radius:18px}.bt.ic{width:36px;font-size:15px}
+#sheet .sb{padding:16px 14px 24px}#x{right:10px;top:10px}
+.hd{padding-right:44px;gap:10px;margin-bottom:14px}.hd h1{font-size:24px}
+.st{border-radius:14px;max-height:46vh}.th{gap:6px;padding-top:10px}.th button{height:42px;border-radius:8px}
+.ct{font-size:11px;padding:2px 8px;left:8px;top:8px}.fs{right:8px;top:8px}
+.md{font-size:15px}.md h2,.md h3{font-size:18px}
+.card .ph{border-radius:16px}.card .nm{font-size:13px;padding:6px 12px;top:calc(100% + 10px)}
+.dg{padding:18px;border-radius:22px}.dg h2{font-size:20px}
+#tools{gap:6px}}

@@ -3,9 +3,9 @@ const cv=$('#cv'),stage=$('#stage'),track=$('#track'),fine=matchMedia('(pointer:
 let cards=[],X=[],S=0,tgt=0,lastS=0,dn=null,snapT,act=-1,W=innerWidth,H=innerHeight,ARC=1800;
 const M={x:-999,y:-999,sx:-999,sy:-999,on:false},isOpen=()=>document.body.classList.contains('open');
 
-function size(a){const h0=clamp(H*.44,200,500),A=h0*h0*1.45;let w=Math.sqrt(A*a),h=Math.sqrt(A/a);
-const k=Math.min(1,W*(W<700?.8:.62)/w,H*.56/h);return[w*k,h*k]}
-function layout(){W=innerWidth;H=innerHeight;ARC=Math.max(W,900)*1.5;const gap=Math.max(36,W*.05);let x=0;
+function size(a){const h0=W<600?clamp(H*.3,150,260):clamp(H*.44,200,500),A=h0*h0*1.45;let w=Math.sqrt(A*a),h=Math.sqrt(A/a);
+const k=Math.min(1,W*(W<700?.74:.62)/w,H*.56/h);return[w*k,h*k]}
+function layout(){W=innerWidth;H=innerHeight;ARC=Math.max(W,900)*1.5;const gap=W<600?22:Math.max(36,W*.05);let x=0;
 X=cards.map((c,i)=>{const[w,h]=size(c._p.ta||1.6);c._w=w;c._h=h;c.style.width=w+'px';c.style.height=h+'px';if(i)x+=cards[i-1]._w/2+gap+w/2;return x});
 S=tgt=clamp(tgt,X[0]||0,X[X.length-1]||0)}
 function card(p,i){const c=mk('button','card');c._p=p;c.style.setProperty('--d',i*70+'ms');c.setAttribute('aria-label',p.name);

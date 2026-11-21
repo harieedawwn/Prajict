@@ -1,6 +1,14 @@
 {
  "projects": [
   {
+   "id": "mo-phong-song-mwqcub3x",
+   "name": "Mô phỏng sóng",
+   "repo": "harieedawwn/mo-phong-song-thpt-tran-quoc-toan",
+   "pages": "https://harieedawwn.github.io/mo-phong-song-thpt-tran-quoc-toan/",
+   "desc": "",
+   "shots": []
+  },
+  {
    "id": "mo-phong-dien-hat-nhan-mwqc1mjd",
    "name": "Mô phỏng điện hạt nhân",
    "repo": "harieedawwn/lo-hat-nhan-simulator",

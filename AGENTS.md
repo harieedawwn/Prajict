@@ -21,5 +21,6 @@ Fixed: no gradients, no neon, no bloom/glow. Keep UI text minimal (no hints, cap
 Keep the data schema and admin flow working, or update both sides together. Never put the password or a token in the repo (password is checked via PBKDF2 hash; token is AES-GCM encrypted in localStorage).
 
 ## Run / check
+When changing CSS/JS, bump `?v=` on every asset in `index.html` (browsers cache old files).
 `python3 -m http.server` (fetch needs http, not file://). `node --check js/*.js`. Scripts are plain globals loaded in the order in `index.html`.
 Deploy: push to `main`; `.github/workflows/pages.yml` publishes the repo root (Pages source = GitHub Actions).

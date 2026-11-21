@@ -1,6 +1,23 @@
 {
  "projects": [
   {
+   "id": "thi-nghiem-mo-phong-giao-thoa-song-nuoc-mwqd1wg7",
+   "name": "THÍ NGHIỆM MÔ PHỎNG GIAO THOA SÓNG NƯỚC",
+   "repo": "harieedawwn/water-sim",
+   "pages": "https://harieedawwn.github.io/water-sim/",
+   "desc": "",
+   "ta": 1.7778,
+   "thumb": "images/thi-nghiem-mo-phong-giao-thoa-song-nuoc-mwqd1wg7/thumb-mwqd1wi68d1.jpg",
+   "shots": [
+    "images/thi-nghiem-mo-phong-giao-thoa-song-nuoc-mwqd1wg7/mwqd1wjrzp3.jpg",
+    "images/thi-nghiem-mo-phong-giao-thoa-song-nuoc-mwqd1wg7/mwqd1wl1erh.jpg",
+    "images/thi-nghiem-mo-phong-giao-thoa-song-nuoc-mwqd1wg7/mwqd1wmn12y.jpg",
+    "images/thi-nghiem-mo-phong-giao-thoa-song-nuoc-mwqd1wg7/mwqd1woxp78.jpg",
+    "images/thi-nghiem-mo-phong-giao-thoa-song-nuoc-mwqd1wg7/mwqd1wqru4s.jpg",
+    "images/thi-nghiem-mo-phong-giao-thoa-song-nuoc-mwqd1wg7/mwqd1wsjnjo.jpg"
+   ]
+  },
+  {
    "id": "mo-phong-song-mwqcub3x",
    "name": "Mô phỏng sóng",
    "repo": "harieedawwn/mo-phong-song-thpt-tran-quoc-toan",

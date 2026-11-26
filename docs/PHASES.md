@@ -15,7 +15,7 @@ Done when:
 Model: Sonnet 5.5 · low — mechanical, clear spec
 Deploy: yes · Screenshots: ≤2
 
-## P2 · Admin: sắp xếp thứ tự project [TODO]
+## P2 · Admin: sắp xếp thứ tự project [DONE]
 Read: CLAUDE.md, js/admin.js (commit, form), js/sheet.js (openP admin buttons)
 Do:
 - Admin tools gain "Sắp xếp": a dialog listing projects (thumb + name) with up/down buttons (works on touch, no drag library), Save = one commit via `commit()` that reorders `projects`.

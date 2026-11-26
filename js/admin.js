@@ -37,19 +37,28 @@ const x=c.getContext('2d');x.fillStyle='#fff';x.fillRect(0,0,c.width,c.height);x
 const u=c.toDataURL('image/jpeg',.88);return{u,b:u.split(',')[1],a:+(c.width/c.height).toFixed(4)}}
 const rid=()=>Date.now().toString(36)+Math.random().toString(36).slice(2,5);
 async function delP(p){const files={};[p.thumb,...(p.shots||[])].filter(Boolean).forEach(u=>files[u]=null);await commit('Xóa '+p.name,files,j=>{j.projects=j.projects.filter(x=>x.id!==p.id)})}
-function form(p){const n=!p;p=p||{};let keep=[...(p.shots||[])],add=[],tf=null;
+function form(p){const n=!p;p=p||{};let keep=[...(p.shots||[])],add=[],tf=null,pt=null,pa=0;
 const d=dlg(n?'Thêm project':'Sửa project',`<input id="fn" placeholder="Tên" value="${esc(p.name||'')}" required><input id="fr" placeholder="Repo (ten/repo)" value="${esc(p.repo||'')}"><input id="fp" placeholder="Link github.io" value="${esc(p.pages||'')}"><textarea id="fd" rows="6" placeholder="Mô tả (Markdown)">${esc(p.desc||'')}</textarea>
 <div class="up"><label class="tp"><img id="ti" alt=""${p.thumb?` src="${esc(src(p.thumb))}"`:''}><span>Thumbnail</span><input id="ft" type="file" accept="image/*"></label></div>
 <div class="sg" id="sg"></div>`,async d=>{
 const name=$('#fn',d).value.trim();if(!name)throw Error('Cần nhập tên');
 const id=p.id||name.toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g,'').replace(/đ/g,'d').replace(/[^a-z0-9]+/g,'-').replace(/^-|-$/g,'')+'-'+Date.now().toString(36);
 const o={...p,id,name,repo:$('#fr',d).value.trim().replace(/^https?:\/\/github\.com\//,'').replace(/(\.git)?\/?$/,''),pages:$('#fp',d).value.trim(),desc:$('#fd',d).value},files={};
-if(tf){const m=await enc(tf,1600),path=`images/${id}/thumb-${rid()}.jpg`;files[path]=m.b;LOCAL[path]=m.u;o.ta=m.a;if(p.thumb)files[p.thumb]=null;o.thumb=path}
+if(tf){pt=null;const m=await enc(tf,1600),path=`images/${id}/thumb-${rid()}.jpg`;files[path]=m.b;LOCAL[path]=m.u;o.ta=m.a;o.thumb=path}
+else if(pt&&keep.includes(pt)){o.thumb=pt;o.ta=pa}
+if(p.thumb&&p.thumb!==o.thumb)files[p.thumb]=null;
 (p.shots||[]).filter(u=>!keep.includes(u)).forEach(u=>files[u]=null);
+if(o.thumb)delete files[o.thumb];
 const np=[];for(const f of add){const m=await enc(f,2000),path=`images/${id}/${rid()}.jpg`;files[path]=m.b;LOCAL[path]=m.u;np.push(path)}o.shots=[...keep,...np];
 await commit((n?'Thêm ':'Sửa ')+name,files,j=>{const i=j.projects.findIndex(x=>x.id===id);if(i<0)j.projects.unshift(o);else j.projects[i]=o});closeP(true);return true});
-$('#ft',d).onchange=e=>{tf=e.target.files[0];if(tf)$('#ti',d).src=URL.createObjectURL(tf)};
-const sg=$('#sg',d),draw=()=>{sg.innerHTML=keep.map((u,i)=>`<span><img src="${esc(src(u))}" alt=""><button type="button" data-k="${i}" aria-label="Bỏ">✕</button></span>`).join('')+add.map((f,i)=>`<span class="nw"><img src="${f._u}" alt=""><button type="button" data-a="${i}" aria-label="Bỏ">✕</button></span>`).join('')+'<label class="ad">+<input type="file" accept="image/*" multiple></label>';
-sg.querySelectorAll('button').forEach(b=>b.onclick=()=>{if(b.dataset.k!=null)keep.splice(+b.dataset.k,1);else add.splice(+b.dataset.a,1);draw()});
+$('#ft',d).onchange=e=>{tf=e.target.files[0];pt=null;if(tf){$('#ti',d).src=URL.createObjectURL(tf);draw()}};
+const sg=$('#sg',d),draw=()=>{sg.innerHTML=keep.map((u,i)=>`<span><img src="${esc(src(u))}" alt=""><button type="button" data-k="${i}" aria-label="Bỏ">✕</button><button type="button" class="mt${(pt||p.thumb)===u&&!tf?' on':''}" data-t="${i}">Thumbnail</button></span>`).join('')+add.map((f,i)=>`<span class="nw"><img src="${f._u}" alt=""><button type="button" data-a="${i}" aria-label="Bỏ">✕</button></span>`).join('')+'<label class="ad">+<input type="file" accept="image/*" multiple></label>';
+sg.querySelectorAll('.mt').forEach(b=>b.onclick=()=>{const u=keep[+b.dataset.t],im=new Image();im.onload=()=>{pt=u;pa=+(im.naturalWidth/im.naturalHeight).toFixed(4);tf=null;$('#ti',d).src=src(u);draw()};im.src=src(u)});
+sg.querySelectorAll('button:not(.mt)').forEach(b=>b.onclick=()=>{if(b.dataset.k!=null)keep.splice(+b.dataset.k,1);else add.splice(+b.dataset.a,1);draw()});
 $('input',sg).onchange=e=>{for(const f of e.target.files){f._u=URL.createObjectURL(f);add.push(f)}draw()}};draw()}
 $('#add').onclick=()=>form();
+
+function sortP(){let ord=P.map(p=>p.id);const d=dlg('Sắp xếp','<div class="so" id="so"></div>',async()=>{await commit('Sắp xếp project',{},j=>{const m=new Map(j.projects.map(x=>[x.id,x]));j.projects=[...ord.filter(i=>m.has(i)).map(i=>m.get(i)),...j.projects.filter(x=>!ord.includes(x.id))]});closeP(true);return true}),
+so=$('#so',d),draw=()=>{const m=new Map(P.map(p=>[p.id,p]));so.innerHTML=ord.map((id,i)=>`<div class="sr"><img src="${esc(src(m.get(id).thumb||''))}" alt=""><b>${esc(m.get(id).name)}</b><button type="button" class="bt ic" data-u="${i}" aria-label="Lên"${i?'':' disabled'}>↑</button><button type="button" class="bt ic" data-d="${i}" aria-label="Xuống"${i<ord.length-1?'':' disabled'}>↓</button></div>`).join('');
+so.querySelectorAll('button').forEach(b=>b.onclick=()=>{const i=+(b.dataset.u??b.dataset.d),k=b.dataset.u!=null?i-1:i+1;[ord[i],ord[k]]=[ord[k],ord[i]];draw();const nb=so.querySelectorAll('.sr')[k].querySelector(b.dataset.u!=null?'[data-u]':'[data-d]');nb&&!nb.disabled&&nb.focus()})};draw()}
+$('#srt').onclick=sortP;

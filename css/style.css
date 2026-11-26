@@ -130,3 +130,10 @@ transition:transform .55s var(--ease),opacity .3s .15s,border-radius .55s var(--
 @media(max-height:500px){#top{padding:6px 14px 8px;border-radius:18px;top:max(8px,env(safe-area-inset-top))}#top h1{font-size:22px}
 .bt{min-height:40px;padding:0 14px;font-size:13px}.card .nm{font-size:13px;padding:5px 12px;top:calc(100% + 8px)}
 #sheet{top:6px;max-height:calc(100dvh - 12px)}#sheet .sb{padding:14px 18px}.hd h1{font-size:24px}.st{max-height:70vh}.th button{height:40px}}
+
+.sg .mt{position:absolute;left:4px;bottom:4px;right:auto;top:auto;width:auto;height:22px;padding:0 8px;border-radius:999px;font-size:11px;font-weight:700}
+.sg .mt.on{background:var(--ink);color:var(--paper)}
+.so{display:grid;gap:6px;max-height:60vh;overflow:auto}
+.sr{display:grid;grid-template-columns:44px 1fr auto auto;gap:8px;align-items:center}
+.sr img{width:44px;height:32px;object-fit:cover;border-radius:8px;background:rgba(19,24,29,.06)}
+.sr b{font-weight:700;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;min-width:0}

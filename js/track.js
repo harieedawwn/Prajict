@@ -33,7 +33,7 @@ let rzT;addEventListener('resize',()=>{clearTimeout(rzT);rzT=setTimeout(()=>{lay
 
 /* chỉ đặt lại transform khi có chuyển động (không tốn CPU lúc đứng yên) */
 let dirty=true;
-function place(){const v=S-lastS;if(!dirty&&Math.abs(v)<.02)return false;dirty=false;lastS=S;const sk=clamp(v*.12,-6,6);
+function place(){const v=S-lastS;if(!dirty&&Math.abs(v)<.02)return false;dirty=false;lastS=S;const sk=still?0:clamp(v*.12,-6,6);
 cards.forEach((c,i)=>{const dx=X[i]-S;if(Math.abs(dx)>W*1.3+c._w){if(c._v!==0){c.style.visibility='hidden';c._v=0}return}
 if(c._v!==1){c.style.visibility='';c._v=1}const a=dx/ARC,x=W/2+ARC*Math.sin(a),y=H*.52+ARC*(1-Math.cos(a)),s=1-Math.min(Math.abs(dx)/W,1)*.1;
 c.style.transform=`translate3d(${(x-c._w/2).toFixed(1)}px,${(y-c._h/2).toFixed(1)}px,0) rotate(${a.toFixed(4)}rad) skewX(${sk.toFixed(2)}deg) scale(${s.toFixed(4)})`});
@@ -41,6 +41,7 @@ const n=X.length?near(S):-1;if(n!==act){cards[act]?.classList.remove('on');act=n
 
 /* ---- nền: ảnh bản đồ vẽ sẵn (tools/make_map.py), lặp liền mạch; chỉ trượt bằng transform ---- */
 const fit=()=>{};
-function bgMove(){const TILE=innerWidth<600?1024:1536;bg.style.transform=`translate3d(${(-((S*.45)%TILE+TILE)%TILE).toFixed(1)}px,0,0)`}
+const still=matchMedia('(pointer:coarse)').matches;
+function bgMove(){if(still)return;const TILE=innerWidth<600?1024:1536;bg.style.transform=`translate3d(${(-((S*.45)%TILE+TILE)%TILE).toFixed(1)}px,0,0)`}
 const frame=()=>{requestAnimationFrame(frame);if(document.hidden||isOpen())return;if(!dn)S+=(tgt-S)*.14;if(place())bgMove()};
 requestAnimationFrame(frame);

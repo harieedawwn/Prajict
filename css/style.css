@@ -18,7 +18,7 @@ button{font:inherit;color:inherit}
 #stage.drag{cursor:grabbing}
 
 /* ---- card: tỷ lệ theo đúng thumbnail ---- */
-.card{position:absolute;left:0;top:0;padding:0;border:0;background:none;cursor:pointer;transform-origin:50% 50%}
+.card{position:absolute;left:0;top:0;padding:0;border:0;background:none;cursor:pointer;transform-origin:50% 50%;will-change:transform;contain:layout style;backface-visibility:hidden}
 .card .ph{position:absolute;inset:0;display:block;border-radius:22px;overflow:hidden;background:#dfe3d6;box-shadow:var(--sh2);
 transition:transform .45s var(--ease),box-shadow .45s var(--ease)}
 .card:not(.ok) .ph{opacity:0}.card.ok .ph{animation:rise .9s var(--ease) var(--d) backwards}
@@ -138,3 +138,11 @@ transition:transform .55s var(--ease),opacity .3s .15s,border-radius .55s var(--
 .sr{display:grid;grid-template-columns:44px 1fr auto auto;gap:8px;align-items:center}
 .sr img{width:44px;height:32px;object-fit:cover;border-radius:8px;background:rgba(19,24,29,.06)}
 .sr b{font-weight:700;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;min-width:0}
+/* ---- điện thoại / cảm ứng: không blur trên nền chuyển động, nền đứng yên, bóng 1 lớp ---- */
+@media(pointer:coarse){
+#bg{width:100%;will-change:auto}
+#top,.bt.glass{backdrop-filter:none!important;-webkit-backdrop-filter:none!important}
+#top{background:rgba(246,242,230,.82)}.bt.glass{background:rgba(246,242,230,.9)}
+.card .ph{box-shadow:0 10px 24px rgba(10,30,36,.32)!important;transition:none}
+.card .nm{box-shadow:0 2px 6px rgba(10,30,36,.2);transition:opacity .2s}
+.card .ph::before{display:none}}

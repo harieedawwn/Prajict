@@ -1,5 +1,5 @@
 /* ---- kính lỏng thật: bản đồ khúc xạ SVG (Chromium); trình duyệt khác dùng blur ---- */
-const LG=!!window.chrome&&!/iPhone|iPad|Firefox/.test(navigator.userAgent);let gid=0;
+const LG=!!window.chrome&&matchMedia('(pointer:fine)').matches&&!/iPhone|iPad|Firefox/.test(navigator.userAgent);let gid=0;
 function glass(el,bz,sc){const w=el.offsetWidth,hh=el.offsetHeight;if(!LG||!w||!hh)return;
 const r=Math.min(parseFloat(getComputedStyle(el).borderTopLeftRadius)||0,w/2,hh/2),c=mk('canvas');c.width=w;c.height=hh;
 const x=c.getContext('2d'),d=x.createImageData(w,hh);

@@ -13,7 +13,7 @@
 *{box-sizing:border-box;margin:0}
 html,body{height:100%;overflow:hidden;background:#1b4a57;color:var(--ink);font:16px/1.55 "Bricolage Grotesque","Segoe UI",Roboto,Arial,sans-serif;-webkit-tap-highlight-color:transparent}
 button{font:inherit;color:inherit}
-#cv{position:fixed;inset:0;width:100%;height:100%;display:block}
+#bg{position:fixed;left:0;top:0;bottom:0;width:calc(100% + 1536px);background:#1b4a57 url(../img/map.webp?v=1) 0 0/1536px 1536px repeat;will-change:transform}
 #stage{position:fixed;inset:0;touch-action:none;cursor:grab;user-select:none;-webkit-user-select:none;overflow:hidden}
 #stage.drag{cursor:grabbing}
 
@@ -115,6 +115,7 @@ transition:transform .55s var(--ease),opacity .3s .15s,border-radius .55s var(--
 @media(prefers-reduced-motion:reduce){*,*::before{transition-duration:.01s!important;animation-duration:.01s!important}}
 /* ---- điện thoại: UI gọn ---- */
 @media(max-width:600px){
+#bg{background-size:1024px 1024px}
 #top{padding:8px 16px 10px;border-radius:20px}#top h1{font-size:24px}
 .bt{min-height:40px;padding:0 14px;font-size:13px;border-radius:20px}.bt.ic{width:40px;font-size:15px}
 #sheet .sb{padding:16px 14px 24px}#x{right:10px;top:10px}

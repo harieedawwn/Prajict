@@ -9,8 +9,8 @@ Static GitHub Pages portfolio. One owner (hidden login, bottom-left invisible bu
 - `js/util.js` also has `LOCAL`/`src()`: just-uploaded images shown from memory until Pages redeploys
 - `js/glass.js` DOM glass (SVG displacement map, desktop Chromium only; plain blur elsewhere — the displacement backdrop is too heavy for phones)
 - `index.html` head has a Zalo bridge stub (zaloJSV2, ZaloJavaScriptInterface) so in-app browsers don't throw
-- `js/shader.js` GLSL background: contour map from a 256² noise TEXTURE (never sin-hash: breaks into blocks on phone GPUs) + fwidth contour lines + cursor lens. Keep derivatives (fwidth) out of branches.
-- `js/track.js` DOM cards (real <img>, card aspect = thumbnail aspect `ta`) laid on a curved arc; drag/wheel/keys with snap. Perf: `place()` only writes transforms when moving; WebGL renders at ≤1× CSS px on touch (≤1.25 desktop) and redraws only while moving, else ~12fps (phone) / 25fps; paused while the sheet is open or tab hidden
+- Background = pre-rendered seamless contour map `img/map.webp` (made by `tools/make_map.py`, 2x density, tile 1536 CSS px / 1024 on phones) on `#bg`, moved only by translate3d for parallax. No WebGL: the live shader lagged and blurred on phones — don't bring it back.
+- `js/track.js` DOM cards (real <img>, card aspect = thumbnail aspect `ta`) laid on a curved arc; drag/wheel/keys with snap. Perf: `place()` and the bg transform only update while moving; loop does nothing when idle, open or hidden
 - `js/sheet.js` project view (FLIP from the card, blurred scrim), multi-image viewer (swipe, keys, fullscreen), dialogs
 - `js/admin.js` login (PBKDF2 hash), token AES-GCM in localStorage + optional "remember" (non-extractable key in IndexedDB), all writes as ONE commit via Git Data API (blobs → tree → commit → ref), removed images are deleted
 - `js/main.js` loads data

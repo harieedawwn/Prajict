@@ -7,6 +7,7 @@ ${imgs.length?`<div class="vw"><div class="st"><div class="rail">${imgs.map(u=>`
 ${imgs.length>1?'<button class="bt ic nv pv" aria-label="Trước">←</button><button class="bt ic nv nx" aria-label="Sau">→</button><span class="ct"></span>':''}<button class="bt ic fs" aria-label="Toàn màn hình">⤢</button></div>
 ${imgs.length>1?`<div class="th">${imgs.map((u,i)=>`<button aria-label="${i+1}"><img src="${esc(src(u))}" alt="" loading="lazy"></button>`).join('')}</div>`:''}</div>`:''}
 ${p.desc?`<div class="md">${md(p.desc)}</div>`:''}`;
+sh.querySelectorAll('.acts a').forEach(a=>{if(/archive\/HEAD\.zip/.test(a.href))a.onclick=e=>{if(!/Zalo|FBAN|FBAV|Instagram|Line/i.test(navigator.userAgent))return;e.preventDefault();const t=document.createElement('div');t.className='tz';t.textContent='Mở bằng trình duyệt để tải';B.appendChild(t);setTimeout(()=>t.remove(),2600)}});
 if(adm){$('#ed').onclick=()=>form(p);$('#dl').onclick=()=>dlg('Xóa "'+esc(p.name)+'"?','',async()=>{await delP(p);closeP(true);return true},'Xóa')}
 vw=imgs.length?viewer($('.vw',sh),imgs.length):null;
 B.classList.add('open');sh.scrollTop=0;$('.sb',sh).scrollTop=0;

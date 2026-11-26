@@ -1,7 +1,7 @@
 # Phases
 Old work (redesign, deploy fix, phone perf) is done directly, see PROGRESS. New phases:
 
-## P1 · Chạy tốt trong Zalo/Facebook + link chia sẻ đẹp [TODO]
+## P1 · Chạy tốt trong Zalo/Facebook + link chia sẻ đẹp [DONE]
 Read: CLAUDE.md, index.html, css/style.css (top), js/sheet.js (action links)
 Do:
 - Self-host Bricolage Grotesque (latin + vietnamese woff2 from @fontsource/bricolage-grotesque 400/700/800) in `fonts/`, @font-face in style.css with font-display:swap; drop the Google Fonts links.

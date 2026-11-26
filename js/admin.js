@@ -28,7 +28,8 @@ const blobs=await Promise.all(ent.filter(e=>e[1]).map(async([path,c])=>({path,mo
 for(let n=0;;n++){const head=(await api('git/ref/heads/'+BR)).object.sha,base=(await api('git/commits/'+head)).tree.sha;
 const f=await api('contents/data/projects.json?ref='+head),j=JSON.parse(D.decode(ub(f.content.replace(/\n/g,''))));fn(j);
 const jb=(await api('git/blobs','POST',{content:b64(E.encode(JSON.stringify(j,null,1)+'\n')),encoding:'base64'})).sha;
-const tree=(await api('git/trees','POST',{base_tree:base,tree:[...blobs,{path:'data/projects.json',mode:'100644',type:'blob',sha:jb},...ent.filter(e=>!e[1]).map(([path])=>({path,mode:'100644',type:'blob',sha:null}))]})).sha;
+const have=new Set((await api('git/trees/'+base+'?recursive=1')).tree.map(x=>x.path));
+const tree=(await api('git/trees','POST',{base_tree:base,tree:[...blobs,{path:'data/projects.json',mode:'100644',type:'blob',sha:jb},...ent.filter(e=>!e[1]&&have.has(e[0])).map(([path])=>({path,mode:'100644',type:'blob',sha:null}))]})).sha;
 const c=(await api('git/commits','POST',{message:msg,tree,parents:[head]})).sha;
 try{await api('git/refs/heads/'+BR,'PATCH',{sha:c});P=j.projects;render();return}catch(e){if(n>1)throw e}}}
 /* ảnh: thu nhỏ, nền trắng cho PNG trong suốt, JPEG */
@@ -48,7 +49,7 @@ if(tf){pt=null;const m=await enc(tf,1600),path=`images/${id}/thumb-${rid()}.jpg`
 else if(pt&&keep.includes(pt)){o.thumb=pt;o.ta=pa}
 if(p.thumb&&p.thumb!==o.thumb)files[p.thumb]=null;
 (p.shots||[]).filter(u=>!keep.includes(u)).forEach(u=>files[u]=null);
-if(o.thumb)delete files[o.thumb];
+if(o.thumb&&files[o.thumb]===null)delete files[o.thumb];
 const np=[];for(const f of add){const m=await enc(f,2000),path=`images/${id}/${rid()}.jpg`;files[path]=m.b;LOCAL[path]=m.u;np.push(path)}o.shots=[...keep,...np];
 await commit((n?'Thêm ':'Sửa ')+name,files,j=>{const i=j.projects.findIndex(x=>x.id===id);if(i<0)j.projects.unshift(o);else j.projects[i]=o});closeP(true);return true});
 $('#ft',d).onchange=e=>{tf=e.target.files[0];pt=null;if(tf){$('#ti',d).src=URL.createObjectURL(tf);draw()}};
